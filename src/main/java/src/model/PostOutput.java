@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 
 public class PostOutput {
 
-
     private int id;
 
     @NotNull(message = "Need to provide a title")

@@ -61,6 +61,4 @@ public class PostController {
         List<Post> postSet = postService.getParticularUserPosts(userId);
         return new ResponseEntity<>(postSet, HttpStatus.OK);
     }
-
-
 }

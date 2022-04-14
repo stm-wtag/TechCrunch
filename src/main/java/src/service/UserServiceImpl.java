@@ -2,10 +2,7 @@ package src.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import src.model.FactoryObjectMapper;
 import src.model.User;
-import src.model.UserInput;
-import src.model.UserOutput;
 import src.repository.UserRepository;
 import javax.transaction.Transactional;
 import java.util.NoSuchElementException;
@@ -23,7 +20,6 @@ public class UserServiceImpl implements UserService{
     @Transactional
     @Override
     public User saveUser(User user) {
-
         return userRepository.save(user);
 
     }
