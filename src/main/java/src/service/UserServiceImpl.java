@@ -22,30 +22,22 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public UserOutput saveUser(UserInput userInput) {
-        User user = FactoryObjectMapper.convertUserInputToModel(userInput);
+    public User saveUser(User user) {
+
         return userRepository.save(user);
 
     }
 
     @Transactional
     @Override
-    public UserOutput getUserById(int userId) {
+    public User getUserById(int userId) {
         User user = userRepository.findUser(userId);
         if (user != null){
-            UserOutput userOutput = FactoryObjectMapper.convertUserEntityToUserOutput(user);
-            return userOutput;
+            return user;
         }
         else {
             throw new NoSuchElementException("There is no such user");
         }
-    }
-
-    @Override
-    public User getUserInstanceById(int userId){
-        User user = userRepository.findUser(userId);
-        if (user != null) return user;
-        else throw new NoSuchElementException("There is no such user");
     }
 
     @Transactional
@@ -57,14 +49,13 @@ public class UserServiceImpl implements UserService{
 
     @Transactional
     @Override
-    public UserOutput updateUserById(User user, int id) {
-        User userToUpdate = getUserInstanceById(id);
+    public User updateUserById(User user, int id) {
+        User userToUpdate = getUserById(id);
         if (user.getUserName() != null) userToUpdate.setUserName(user.getUserName());
         if (user.getEmailAddress() != null) userToUpdate.setEmailAddress(user.getEmailAddress());
         if (user.getPassword() != null) userToUpdate.setPassword(user.getPassword());
 
-        userRepository.save(userToUpdate);
-        return FactoryObjectMapper.convertUserEntityToUserOutput(userToUpdate);
+        return userRepository.save(userToUpdate);
 
     }
 }

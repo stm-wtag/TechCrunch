@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import src.exceptions.BadRequestException;
+import src.model.FactoryObjectMapper;
 import src.model.Post;
 import src.model.PostInput;
 import src.model.PostOutput;
 import src.service.PostService;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -31,20 +30,24 @@ public class PostController {
             throw new BadRequestException(bindingResult);
         }
 
-        PostOutput savedPost = postService.savePost(postInput, userId);
-        return new ResponseEntity<>(savedPost , HttpStatus.CREATED);
+        Post post = FactoryObjectMapper.convertPostInputToModel(postInput);
+        Post savedPost = postService.savePost(post, userId);
+        PostOutput postOutput = FactoryObjectMapper.convertPostModelToPostOutput(savedPost);
+        return new ResponseEntity<>(postOutput , HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/posts/{postId}")
     public ResponseEntity<PostOutput> getPost(@PathVariable int userId, @PathVariable int postId) {
-        PostOutput fetchedPost = postService.getPostById(userId, postId);
-        return  new ResponseEntity<>(fetchedPost , HttpStatus.OK);
+        Post fetchedPost = postService.getPostById(userId, postId);
+        PostOutput postOutput = FactoryObjectMapper.convertPostModelToPostOutput(fetchedPost);
+        return  new ResponseEntity<>(postOutput , HttpStatus.OK);
     }
 
     @PatchMapping(value="/posts/{postId}")
     public ResponseEntity<PostOutput> editPost(@RequestBody Post post, @PathVariable int userId, @PathVariable int postId){
-        PostOutput fetchedPost = postService.editPostById(post, userId, postId);
-        return new ResponseEntity<>(fetchedPost, HttpStatus.OK);
+        Post fetchedPost = postService.editPostById(post, userId, postId);
+        PostOutput postOutput = FactoryObjectMapper.convertPostModelToPostOutput(fetchedPost);
+        return new ResponseEntity<>(postOutput, HttpStatus.OK);
     }
 
     @DeleteMapping(value="/posts/{postId}")
@@ -59,9 +62,5 @@ public class PostController {
         return new ResponseEntity<>(postSet, HttpStatus.OK);
     }
 
-//    @ExceptionHandler(MethodArgumentNotValidException.class)
-//    public void handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
-//        methodArgumentNotValidException.printStackTrace();
-//    }
 
 }

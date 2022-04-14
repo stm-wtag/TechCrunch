@@ -5,9 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import src.model.FactoryObjectMapper;
 import src.model.Post;
-import src.model.PostOutput;
 import src.model.User;
 import javax.persistence.criteria.*;
 import javax.transaction.Transactional;
@@ -25,11 +23,10 @@ public class PostRepositoryImpl implements PostRepository {
 
     @Override
     @Transactional
-    public PostOutput save(Post post){
+    public Post save(Post post){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(post);
-        return FactoryObjectMapper.convertPostModelToPostOutput(post);
-
+        return post;
     }
 
     @Override

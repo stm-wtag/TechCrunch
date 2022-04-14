@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import src.exceptions.BadRequestException;
+import src.model.FactoryObjectMapper;
 import src.model.User;
 import src.model.UserInput;
 import src.model.UserOutput;
@@ -30,14 +31,16 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult);
         }
-
-        UserOutput userOutput = userService.saveUser(userInput);
+        User user = FactoryObjectMapper.convertUserInputToModel(userInput);
+        User savedUser = userService.saveUser(user);
+        UserOutput userOutput = FactoryObjectMapper.convertUserEntityToUserOutput(savedUser);
         return new ResponseEntity<>(userOutput, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{userId}")
     public ResponseEntity<UserOutput> getUser(@PathVariable("userId") int userId) {
-        UserOutput userOutput = userService.getUserById(userId);
+        User user= userService.getUserById(userId);
+        UserOutput userOutput = FactoryObjectMapper.convertUserEntityToUserOutput(user);
         return ResponseEntity.ok(userOutput);
 
     }
@@ -50,8 +53,9 @@ public class UserController {
 
     @PatchMapping(value = "/{userId}")
     public ResponseEntity<UserOutput> updateUser(@RequestBody User user, @PathVariable("userId") int userId) {
-        UserOutput savedUser = userService.updateUserById(user, userId);
-        return ResponseEntity.ok(savedUser);
+        User savedUser = userService.updateUserById(user, userId);
+        UserOutput userOutput = FactoryObjectMapper.convertUserEntityToUserOutput(savedUser);
+        return ResponseEntity.ok(userOutput);
     }
 
 

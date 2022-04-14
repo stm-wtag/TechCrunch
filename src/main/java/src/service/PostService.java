@@ -1,21 +1,15 @@
 package src.service;
 
 import src.model.Post;
-import src.model.PostInput;
-import src.model.PostOutput;
-
-import javax.transaction.Transactional;
 import java.util.List;
 
 public interface PostService {
 
-    PostOutput savePost(PostInput postInput, int id);
+    Post savePost(Post post, int id);
 
-    Post getPostInstanceById(int userId, int postId);
+    Post getPostById(int userId, int postId);
 
-    PostOutput getPostById(int userId, int postId);
-
-    PostOutput editPostById(Post post, int userId, int postId);
+    Post editPostById(Post post, int userId, int postId);
 
     void deletePostById(int userId, int postId);
 

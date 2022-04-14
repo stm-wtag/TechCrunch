@@ -1,18 +1,15 @@
 package src.service;
 
 import src.model.User;
-import src.model.UserInput;
-import src.model.UserOutput;
 
 public interface UserService {
 
-    UserOutput saveUser(UserInput userInput);
+    User saveUser(User user);
 
-    UserOutput getUserById(int userId);
+    User getUserById(int userId);
 
     void deleteUserById(int userId);
 
-    UserOutput updateUserById(User user, int id);
+    User updateUserById(User user, int id);
 
-    User getUserInstanceById(int userId);
 }

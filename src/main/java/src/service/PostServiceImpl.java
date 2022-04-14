@@ -21,9 +21,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostOutput savePost(PostInput postInput, int id){
-        User postAuthor = userService.getUserInstanceById(id);
-        Post post = FactoryObjectMapper.convertPostInputToModel(postInput);
+    public Post savePost(Post post, int id){
+        User postAuthor = userService.getUserById(id);
         post.setUser(postAuthor);
         return postRepository.save(post);
 
@@ -31,42 +30,30 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public PostOutput getPostById(int userId, int postId){
-        User postAuthor = userService.getUserInstanceById(userId);
+    public Post getPostById(int userId, int postId){
+        User postAuthor = userService.getUserById(userId);
         Post post = postRepository.findPost(postId);
         if (postAuthor ==  null) throw new NoSuchElementException("There is no such user");
         if (post == null) throw new NoSuchElementException("There is no such post");
-        PostOutput postOutput = FactoryObjectMapper.convertPostModelToPostOutput(post);
-        return postOutput;
-    }
 
-    @Override
-    @Transactional
-    public Post getPostInstanceById(int userId, int postId){
-        User postAuthor = userService.getUserInstanceById(userId);
-        Post post = postRepository.findPost(postId);
-
-        if (postAuthor ==  null) throw new NoSuchElementException("There is no such user");
-        if (post == null) throw new NoSuchElementException("There is no such post");
         return post;
     }
 
+
     @Override
     @Transactional
-    public PostOutput editPostById(Post post, int userId, int postId){
-        Post fetchedPost = getPostInstanceById(userId, postId);
+    public Post editPostById(Post post, int userId, int postId){
+        Post fetchedPost = getPostById(userId, postId);
         if (post.getTitle() != null) fetchedPost.setTitle(post.getTitle());
         if (post.getDescription() != null) fetchedPost.setDescription(post.getDescription());
-        postRepository.save(fetchedPost);
-        PostOutput postOutput = FactoryObjectMapper.convertPostModelToPostOutput(fetchedPost);
-        return postOutput;
+        return postRepository.save(fetchedPost);
 
     }
 
     @Override
     @Transactional
     public void deletePostById(int userId, int postId){
-        Post fetchedPost = getPostInstanceById(userId, postId);
+        Post fetchedPost = getPostById(userId, postId);
         postRepository.delete(fetchedPost);
     }
 

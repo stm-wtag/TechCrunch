@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 
 public interface UserRepository {
 
-    UserOutput save(User user);
+    User save(User user);
 
     User findUser(int userId);
 

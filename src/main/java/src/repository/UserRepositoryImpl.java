@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import src.model.FactoryObjectMapper;
 import src.model.User;
-import src.model.UserOutput;
+
 import javax.transaction.Transactional;
 
 
@@ -22,10 +22,10 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public UserOutput save(User user){
+    public User save(User user){
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.save(user);
-        return FactoryObjectMapper.convertUserEntityToUserOutput(user);
+        return user;
   }
 
     @Override

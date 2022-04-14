@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PostRepository {
 
-    PostOutput save(Post post);
+    Post save(Post post);
 
     Post findPost(int postId);
 
