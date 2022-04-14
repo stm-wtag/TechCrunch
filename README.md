@@ -4,7 +4,7 @@ It is a simple blog where users can create post, edit and delete the post.
 Before creating a post user must be created and all CRUD operations can be applied to the user.
 
 ## Creating an user
-![alt text](https://user-images.githubusercontent.com/98805586/163364603-363b19d5-7024-4eac-8683-8d03135ca1a8.png)
+![alt text](https://user-images.githubusercontent.com/98805586/163384824-eb47fd1e-05b7-4043-9de6-5a353b33d32e.png)
 
 ## Get an user
 ![alt text](https://user-images.githubusercontent.com/98805586/163365115-2850152a-f732-4427-8c0e-e81f92cc47de.png)
