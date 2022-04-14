@@ -26,3 +26,6 @@ Before creating a post user must be created and all CRUD operations can be appli
 
 ## Delete post of an user
 ![alt text](https://user-images.githubusercontent.com/98805586/163370901-41e7f813-6d41-4d94-a383-3eb3ac9bda5d.png)
+
+## Get all posts of an user
+![alt text](https://user-images.githubusercontent.com/98805586/163388246-de289eeb-045a-4404-bdc6-083924a4fc6a.png)
