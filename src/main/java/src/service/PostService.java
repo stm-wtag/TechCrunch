@@ -1,6 +1,6 @@
 package src.service;
 
-import src.model.Post;
+import src.model.entities.Post;
 import java.util.List;
 
 public interface PostService {
