@@ -4,7 +4,7 @@ import org.springframework.validation.BindingResult;
 
 public class BadRequestException extends RuntimeException{
 
-    private BindingResult bindingResult;
+    private final BindingResult bindingResult;
 
     public BadRequestException(BindingResult bindingResult) {
         this.bindingResult = bindingResult;
@@ -14,7 +14,4 @@ public class BadRequestException extends RuntimeException{
         return bindingResult;
     }
 
-    public void setBindingResult(BindingResult bindingResult) {
-        this.bindingResult = bindingResult;
-    }
 }

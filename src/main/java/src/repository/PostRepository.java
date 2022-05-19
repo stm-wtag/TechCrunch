@@ -1,7 +1,7 @@
 package src.repository;
 
-import src.model.Post;
-import src.model.PostOutput;
+import src.model.entities.Post;
+import src.model.entities.User;
 
 import java.util.List;
 
@@ -9,7 +9,7 @@ public interface PostRepository {
 
     Post save(Post post);
 
-    Post findPost(int postId);
+    Post  findPost(int postId, User postAuthor);
 
     void delete(Post post);
 
